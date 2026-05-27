@@ -47,11 +47,7 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
       );
       return resp.data ?? const [];
     } on DioException catch (e, st) {
-      developer.log(
-        'fetchMarketsPage failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('fetchMarketsPage failed', error: e, stackTrace: st);
       rethrow;
     }
   }
@@ -72,11 +68,7 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
       );
       return resp.data ?? const [];
     } on DioException catch (e, st) {
-      developer.log(
-        'fetchMarketsForIds failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('fetchMarketsForIds failed', error: e, stackTrace: st);
       rethrow;
     }
   }
@@ -84,14 +76,12 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
   @override
   Future<Map<String, dynamic>> fetchGlobal() async {
     try {
-      final resp = await _dio.get<Map<String, dynamic>>(ApiConstants.globalPath);
+      final resp = await _dio.get<Map<String, dynamic>>(
+        ApiConstants.globalPath,
+      );
       return resp.data ?? const {};
     } on DioException catch (e, st) {
-      developer.log(
-        'fetchGlobal failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('fetchGlobal failed', error: e, stackTrace: st);
       rethrow;
     }
   }
@@ -104,11 +94,7 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
       );
       return resp.data ?? const {};
     } on DioException catch (e, st) {
-      developer.log(
-        'fetchTrending failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('fetchTrending failed', error: e, stackTrace: st);
       rethrow;
     }
   }
@@ -129,17 +115,16 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
       );
       return resp.data ?? const {};
     } on DioException catch (e, st) {
-      developer.log(
-        'fetchCoinDetail failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('fetchCoinDetail failed', error: e, stackTrace: st);
       rethrow;
     }
   }
 
   @override
-  Future<List<String>> searchCoinIds(String query, {int maxResults = 200}) async {
+  Future<List<String>> searchCoinIds(
+    String query, {
+    int maxResults = 200,
+  }) async {
     final q = query.trim();
     if (q.isEmpty) return const [];
 
@@ -159,11 +144,7 @@ final class CoinRemoteDataSourceImpl implements CoinRemoteDataSource {
       }
       return ids;
     } on DioException catch (e, st) {
-      developer.log(
-        'searchCoinIds failed',
-        error: e,
-        stackTrace: st,
-      );
+      developer.log('searchCoinIds failed', error: e, stackTrace: st);
       rethrow;
     }
   }

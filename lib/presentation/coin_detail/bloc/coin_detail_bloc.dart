@@ -44,14 +44,12 @@ class CoinDetailBloc extends Bloc<CoinDetailEvent, CoinDetailState> {
   Future<void> _onStarted(
     CoinDetailStarted event,
     Emitter<CoinDetailState> emit,
-  ) =>
-      _load(emit);
+  ) => _load(emit);
 
   Future<void> _onRefreshed(
     CoinDetailRefreshed event,
     Emitter<CoinDetailState> emit,
-  ) =>
-      _load(emit, forceRemote: true);
+  ) => _load(emit, forceRemote: true);
 
   Future<void> _load(
     Emitter<CoinDetailState> emit, {
@@ -102,12 +100,9 @@ class CoinDetailBloc extends Bloc<CoinDetailEvent, CoinDetailState> {
       coinId: _coinId,
       asFavorite: toggleOn,
     );
-    result.fold(
-      (failure) {
-        emit(state.copyWith(actionMessage: failure.message));
-      },
-      (_) {},
-    );
+    result.fold((failure) {
+      emit(state.copyWith(actionMessage: failure.message));
+    }, (_) {});
   }
 
   void _onFavoriteIdsEmitted(

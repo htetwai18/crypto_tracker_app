@@ -21,24 +21,27 @@ final class TrendingResponseDto {
 
   List<TrendingCoin> toTrendingCoins() {
     final list = raw['coins'] as List<dynamic>? ?? const [];
-    return list.map((wrapped) {
-      final m = wrapped as Map<String, dynamic>;
-      final item = m['item'] as Map<String, dynamic>? ?? m;
-      final slug = (item['id'] as String? ?? '').trim();
-      final idRaw = item['coin_id'] ?? item['id'];
-      final id = slug.isNotEmpty ? slug : '${idRaw ?? ''}'.trim();
-      if (id.isEmpty) return null;
-      return TrendingCoin(
-        id: id,
-        symbol: (item['symbol'] as String? ?? '').toUpperCase(),
-        name: item['name'] as String? ?? '',
-        thumbUrl:
-            '${item['small'] ?? item['thumb'] ?? item['large'] ?? ''}',
-        marketCapRank: (item['market_cap_rank'] as num?)?.toInt(),
-        priceBtc: _parsePriceBtc(item),
-        priceChangePercentage24h: _parsePriceChangePercentage24h(item),
-      );
-    }).whereType<TrendingCoin>().toList();
+    return list
+        .map((wrapped) {
+          final m = wrapped as Map<String, dynamic>;
+          final item = m['item'] as Map<String, dynamic>? ?? m;
+          final slug = (item['id'] as String? ?? '').trim();
+          final idRaw = item['coin_id'] ?? item['id'];
+          final id = slug.isNotEmpty ? slug : '${idRaw ?? ''}'.trim();
+          if (id.isEmpty) return null;
+          return TrendingCoin(
+            id: id,
+            symbol: (item['symbol'] as String? ?? '').toUpperCase(),
+            name: item['name'] as String? ?? '',
+            thumbUrl:
+                '${item['small'] ?? item['thumb'] ?? item['large'] ?? ''}',
+            marketCapRank: (item['market_cap_rank'] as num?)?.toInt(),
+            priceBtc: _parsePriceBtc(item),
+            priceChangePercentage24h: _parsePriceChangePercentage24h(item),
+          );
+        })
+        .whereType<TrendingCoin>()
+        .toList();
   }
 
   static double? _parsePriceBtc(Map<String, dynamic> item) {

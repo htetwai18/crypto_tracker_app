@@ -49,10 +49,8 @@ class _ErrorRemoteDataSource implements CoinRemoteDataSource {
   }
 
   @override
-  Future<List<dynamic>> fetchMarketsForIds(List<String> ids) => fetchMarketsPage(
-    page: 1,
-    perPage: 20,
-  );
+  Future<List<dynamic>> fetchMarketsForIds(List<String> ids) =>
+      fetchMarketsPage(page: 1, perPage: 20);
 
   @override
   Future<List<dynamic>> fetchMarketsPage({
@@ -84,8 +82,10 @@ class _ErrorRemoteDataSource implements CoinRemoteDataSource {
   }
 
   @override
-  Future<List<String>> searchCoinIds(String query, {int maxResults = 200}) async =>
-      const ['bitcoin'];
+  Future<List<String>> searchCoinIds(
+    String query, {
+    int maxResults = 200,
+  }) async => const ['bitcoin'];
 }
 
 class _ErrorLocalDataSource implements CoinLocalDataSource {
@@ -121,7 +121,8 @@ class _ErrorLocalDataSource implements CoinLocalDataSource {
       DateTime.now().subtract(const Duration(days: 7));
 
   @override
-  Future<String?> cachedCoinDetailJson(String coinId) async => coinDetailPayload;
+  Future<String?> cachedCoinDetailJson(String coinId) async =>
+      coinDetailPayload;
 
   @override
   Future<DateTime?> cachedCoinDetailFetchedAt(String coinId) async =>
@@ -144,7 +145,10 @@ class _ErrorLocalDataSource implements CoinLocalDataSource {
   @override
   Future<void> persistTrendingJson(String payloadJson) async {}
   @override
-  Future<void> setFavorite({required String coinId, required bool favorite}) async {}
+  Future<void> setFavorite({
+    required String coinId,
+    required bool favorite,
+  }) async {}
   @override
   Stream<Set<String>> watchFavoriteIds() => Stream.value(const <String>{});
 }
@@ -196,16 +200,19 @@ void main() {
     expect(result.isOk, isTrue);
   });
 
-  test('detail Dio error returns mapped server failure when no cache', () async {
-    final local = _ErrorLocalDataSource();
-    final repo = CryptoRepositoryImpl(
-      networkInfo: StubNetworkInfo(online: true),
-      remote: _ErrorRemoteDataSource(throwOn: 'detail'),
-      local: local,
-    );
+  test(
+    'detail Dio error returns mapped server failure when no cache',
+    () async {
+      final local = _ErrorLocalDataSource();
+      final repo = CryptoRepositoryImpl(
+        networkInfo: StubNetworkInfo(online: true),
+        remote: _ErrorRemoteDataSource(throwOn: 'detail'),
+        local: local,
+      );
 
-    final result = await repo.getCoinDetail('bitcoin', forceRemote: true);
-    expect(result.isErr, isTrue);
-    expect(result.err?.failure, isA<ServerFailure>());
-  });
+      final result = await repo.getCoinDetail('bitcoin', forceRemote: true);
+      expect(result.isErr, isTrue);
+      expect(result.err?.failure, isA<ServerFailure>());
+    },
+  );
 }

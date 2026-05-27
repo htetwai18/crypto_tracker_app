@@ -5,8 +5,9 @@ final class GetMarketsCacheFetchedAtUseCase {
 
   final CryptoRepository _repository;
 
-  Future<DateTime?> call({
-    required int page,
-    String searchQuery = '',
-  }) => _repository.getMarketsCacheFetchedAt(page: page, searchQuery: searchQuery);
+  Future<DateTime?> call({required int page, String searchQuery = ''}) =>
+      _repository.getMarketsCacheFetchedAt(
+        page: page,
+        searchQuery: searchQuery,
+      );
 }

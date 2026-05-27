@@ -29,9 +29,8 @@ abstract interface class CryptoRepository {
     String searchQuery = '',
   });
 
-  Future<Result<(GlobalMarketOverview?, List<TrendingCoin>)>> getTrendingAndGlobal({
-    bool forceRemote = false,
-  });
+  Future<Result<(GlobalMarketOverview?, List<TrendingCoin>)>>
+  getTrendingAndGlobal({bool forceRemote = false});
 
   Future<Result<CoinDetail>> getCoinDetail(
     String coinId, {

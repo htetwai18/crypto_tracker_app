@@ -74,8 +74,10 @@ class _MatrixRemoteDataSource implements CoinRemoteDataSource {
       fetchMarketsPage(page: 1, perPage: 1);
 
   @override
-  Future<List<String>> searchCoinIds(String query, {int maxResults = 200}) async =>
-      const ['bitcoin'];
+  Future<List<String>> searchCoinIds(
+    String query, {
+    int maxResults = 200,
+  }) async => const ['bitcoin'];
 }
 
 class _MatrixLocalDataSource implements CoinLocalDataSource {
@@ -139,36 +141,44 @@ class _MatrixLocalDataSource implements CoinLocalDataSource {
   Future<void> persistTrendingJson(String payloadJson) async {}
 
   @override
-  Future<void> setFavorite({required String coinId, required bool favorite}) async {}
+  Future<void> setFavorite({
+    required String coinId,
+    required bool favorite,
+  }) async {}
 
   @override
   Stream<Set<String>> watchFavoriteIds() => Stream.value(const <String>{});
 }
 
 void main() {
-  test('fresh markets cache + online + forceRemote=false returns cache', () async {
-    final local = _MatrixLocalDataSource();
-    local.marketsPayload = jsonEncode([
-      {
-        'id': 'cached',
-        'symbol': 'ch',
-        'name': 'Cached',
-        'image': '',
-        'current_price': 1,
-      },
-    ]);
-    local.marketsFetchedAt = DateTime.now().subtract(const Duration(minutes: 1));
-    final remote = _MatrixRemoteDataSource();
-    final repo = CryptoRepositoryImpl(
-      networkInfo: StubNetworkInfo(online: true),
-      remote: remote,
-      local: local,
-    );
+  test(
+    'fresh markets cache + online + forceRemote=false returns cache',
+    () async {
+      final local = _MatrixLocalDataSource();
+      local.marketsPayload = jsonEncode([
+        {
+          'id': 'cached',
+          'symbol': 'ch',
+          'name': 'Cached',
+          'image': '',
+          'current_price': 1,
+        },
+      ]);
+      local.marketsFetchedAt = DateTime.now().subtract(
+        const Duration(minutes: 1),
+      );
+      final remote = _MatrixRemoteDataSource();
+      final repo = CryptoRepositoryImpl(
+        networkInfo: StubNetworkInfo(online: true),
+        remote: remote,
+        local: local,
+      );
 
-    final result = await repo.getMarketsPage(page: 1);
-    expect(result, isA<Ok<List>>());
-    expect(remote.fetchMarketsPageCalls, 0);
-  });
+      final result = await repo.getMarketsPage(page: 1);
+      expect(result, isA<Ok<List>>());
+      expect(remote.fetchMarketsPageCalls, 0);
+    },
+  );
 
   test('offline + cache exists returns cache', () async {
     final local = _MatrixLocalDataSource();

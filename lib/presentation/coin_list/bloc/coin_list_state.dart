@@ -30,6 +30,7 @@ final class CoinListState extends Equatable {
   final GlobalMarketOverview? global;
   final Set<String> favoriteIds;
   final String? errorMessage;
+
   /// Last successfully loaded page (starts at 1 after first fetch).
   final int currentPage;
   final String searchQuery;
@@ -41,7 +42,9 @@ final class CoinListState extends Equatable {
   final DateTime? cachedMarketsFetchedAt;
 
   bool get canLoadMore {
-    if (!hasMore || isLoadingMore || isInitialLoading || isSearching) return false;
+    if (!hasMore || isLoadingMore || isInitialLoading || isSearching) {
+      return false;
+    }
     final blockedUntil = loadMoreBlockedUntil;
     if (blockedUntil == null) return true;
     return DateTime.now().isAfter(blockedUntil);
@@ -79,23 +82,23 @@ final class CoinListState extends Equatable {
       trending: trending ?? this.trending,
       global: global ?? this.global,
       favoriteIds: favoriteIds ?? this.favoriteIds,
-      errorMessage:
-          clearErrorMessage ? null : (errorMessage ?? this.errorMessage),
+      errorMessage: clearErrorMessage
+          ? null
+          : (errorMessage ?? this.errorMessage),
       currentPage: currentPage ?? this.currentPage,
       searchQuery: searchQuery ?? this.searchQuery,
       offlineBanner: offlineBanner ?? this.offlineBanner,
       hasMore: hasMore ?? this.hasMore,
       emptySearch: emptySearch ?? this.emptySearch,
-      loadMoreBlockedUntil:
-          clearLoadMoreBlockedUntil
-              ? null
-              : (loadMoreBlockedUntil ?? this.loadMoreBlockedUntil),
-      actionMessage:
-          clearActionMessage ? null : (actionMessage ?? this.actionMessage),
-      cachedMarketsFetchedAt:
-          clearCachedMarketsFetchedAt
-              ? null
-              : (cachedMarketsFetchedAt ?? this.cachedMarketsFetchedAt),
+      loadMoreBlockedUntil: clearLoadMoreBlockedUntil
+          ? null
+          : (loadMoreBlockedUntil ?? this.loadMoreBlockedUntil),
+      actionMessage: clearActionMessage
+          ? null
+          : (actionMessage ?? this.actionMessage),
+      cachedMarketsFetchedAt: clearCachedMarketsFetchedAt
+          ? null
+          : (cachedMarketsFetchedAt ?? this.cachedMarketsFetchedAt),
     );
   }
 

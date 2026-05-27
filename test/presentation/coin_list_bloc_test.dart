@@ -48,16 +48,15 @@ void main() {
         };
   });
 
-  CoinListBloc buildBloc() =>
-      CoinListBloc(
-        watchFavoriteIds: WatchFavoriteIdsUseCase(repo),
-        getTrendingAndGlobalUseCase: GetTrendingAndGlobalUseCase(repo),
-        getMarketsPageUseCase: GetMarketsPageUseCase(repo),
-        getMarketsCacheFetchedAtUseCase: GetMarketsCacheFetchedAtUseCase(repo),
-        toggleFavoriteUseCase: ToggleFavoriteUseCase(repo),
-        clearMarketsCacheUseCase: ClearMarketsCacheUseCase(repo),
-        networkInfo: networkInfo,
-      );
+  CoinListBloc buildBloc() => CoinListBloc(
+    watchFavoriteIds: WatchFavoriteIdsUseCase(repo),
+    getTrendingAndGlobalUseCase: GetTrendingAndGlobalUseCase(repo),
+    getMarketsPageUseCase: GetMarketsPageUseCase(repo),
+    getMarketsCacheFetchedAtUseCase: GetMarketsCacheFetchedAtUseCase(repo),
+    toggleFavoriteUseCase: ToggleFavoriteUseCase(repo),
+    clearMarketsCacheUseCase: ClearMarketsCacheUseCase(repo),
+    networkInfo: networkInfo,
+  );
 
   blocTest<CoinListBloc, CoinListState>(
     'emits populated list after CoinListOpened',
@@ -74,9 +73,8 @@ void main() {
   blocTest<CoinListBloc, CoinListState>(
     'refresh clears transient action message',
     build: () {
-      repo.setFavoriteAnswer =
-          ({required coinId, required favorite}) async =>
-              const Err(CacheFailure(message: 'Favorite failed'));
+      repo.setFavoriteAnswer = ({required coinId, required favorite}) async =>
+          const Err(CacheFailure(message: 'Favorite failed'));
       return buildBloc();
     },
     act: (bloc) async {
@@ -96,9 +94,8 @@ void main() {
   blocTest<CoinListBloc, CoinListState>(
     'emits action message when favorite toggle fails',
     build: () {
-      repo.setFavoriteAnswer =
-          ({required coinId, required favorite}) async =>
-              const Err(CacheFailure(message: 'Favorite failed'));
+      repo.setFavoriteAnswer = ({required coinId, required favorite}) async =>
+          const Err(CacheFailure(message: 'Favorite failed'));
       return buildBloc();
     },
     act: (bloc) async {
@@ -169,9 +166,8 @@ void main() {
   blocTest<CoinListBloc, CoinListState>(
     'search reload clears stale action message',
     build: () {
-      repo.setFavoriteAnswer =
-          ({required coinId, required favorite}) async =>
-              const Err(CacheFailure(message: 'Favorite failed'));
+      repo.setFavoriteAnswer = ({required coinId, required favorite}) async =>
+          const Err(CacheFailure(message: 'Favorite failed'));
       return buildBloc();
     },
     act: (bloc) async {

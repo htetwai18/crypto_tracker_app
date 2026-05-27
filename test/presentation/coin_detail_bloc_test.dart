@@ -29,13 +29,12 @@ void main() {
     repo = StubCryptoRepository(
       favoritesStream: Stream<Set<String>>.value(<String>{}),
     );
-    repo.detailAnswer =
-        (coinId, {forceRemote = false}) async => Ok(
-          CoinDetail(
-            summary: summary,
-            descriptions: const {'en': 'Smart contracts platform'},
-          ),
-        );
+    repo.detailAnswer = (coinId, {forceRemote = false}) async => Ok(
+      CoinDetail(
+        summary: summary,
+        descriptions: const {'en': 'Smart contracts platform'},
+      ),
+    );
   });
 
   CoinDetailBloc buildBloc() => CoinDetailBloc(
@@ -62,9 +61,8 @@ void main() {
   blocTest<CoinDetailBloc, CoinDetailState>(
     'emits action message when favorite toggle fails',
     build: () {
-      repo.setFavoriteAnswer =
-          ({required coinId, required favorite}) async =>
-              const Err(CacheFailure(message: 'Favorite failed'));
+      repo.setFavoriteAnswer = ({required coinId, required favorite}) async =>
+          const Err(CacheFailure(message: 'Favorite failed'));
       return buildBloc();
     },
     wait: const Duration(milliseconds: 50),
@@ -87,10 +85,7 @@ void main() {
           return const Err(ServerFailure(message: 'Load failed'));
         }
         return Ok(
-          CoinDetail(
-            summary: summary,
-            descriptions: const {'en': 'Recovered'},
-          ),
+          CoinDetail(summary: summary, descriptions: const {'en': 'Recovered'}),
         );
       };
       return buildBloc();
@@ -111,9 +106,8 @@ void main() {
   blocTest<CoinDetailBloc, CoinDetailState>(
     'refresh clears stale action message',
     build: () {
-      repo.setFavoriteAnswer =
-          ({required coinId, required favorite}) async =>
-              const Err(CacheFailure(message: 'Favorite failed'));
+      repo.setFavoriteAnswer = ({required coinId, required favorite}) async =>
+          const Err(CacheFailure(message: 'Favorite failed'));
       return buildBloc();
     },
     wait: const Duration(milliseconds: 50),

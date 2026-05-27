@@ -17,7 +17,9 @@ class CoinDetailPage extends StatelessWidget {
 
   static String _stripHtml(String? raw) {
     if (raw == null || raw.isEmpty) return '';
-    return raw.replaceAll(RegExp('<[^>]*>'), ' ').replaceAll(RegExp(r'\s+'), ' ');
+    return raw
+        .replaceAll(RegExp('<[^>]*>'), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ');
   }
 
   @override
@@ -33,14 +35,10 @@ class CoinDetailPage extends StatelessWidget {
           builder: (context, state) {
             final s = state.detail?.summary ?? summary;
             final rank = s.marketCapRank;
-            final title =
-                rank == null
-                    ? s.symbol
-                    : l10n.detailRankTitle(s.symbol, rank);
-            return Text(
-              title,
-              style: context.appBarTitleStyle,
-            );
+            final title = rank == null
+                ? s.symbol
+                : l10n.detailRankTitle(s.symbol, rank);
+            return Text(title, style: context.appBarTitleStyle);
           },
         ),
         actions: [
@@ -55,25 +53,25 @@ class CoinDetailPage extends StatelessWidget {
                   fav ? Icons.star : Icons.star_border,
                   color: fav ? palette.positive : palette.subtleText,
                 ),
-                onPressed:
-                    () => context.read<CoinDetailBloc>().add(
-                      const CoinDetailFavoritePressed(),
-                    ),
+                onPressed: () => context.read<CoinDetailBloc>().add(
+                  const CoinDetailFavoritePressed(),
+                ),
               );
             },
           ),
         ],
       ),
       body: BlocConsumer<CoinDetailBloc, CoinDetailState>(
-        listenWhen:
-            (p, c) =>
-                (p.failureMessage != c.failureMessage &&
-                    c.failureMessage != null) ||
-                (p.actionMessage != c.actionMessage && c.actionMessage != null),
+        listenWhen: (p, c) =>
+            (p.failureMessage != c.failureMessage &&
+                c.failureMessage != null) ||
+            (p.actionMessage != c.actionMessage && c.actionMessage != null),
         listener: (context, state) {
           final msg = state.actionMessage ?? state.failureMessage;
           if (msg != null) {
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(msg)));
           }
         },
         builder: (context, state) {
@@ -85,7 +83,9 @@ class CoinDetailPage extends StatelessWidget {
           final s = d?.summary ?? summary;
           final locale = Localizations.localeOf(context).languageCode;
           final descRaw = _stripHtml(d?.descriptionFor(locale));
-          final desc = descRaw.length > 800 ? '${descRaw.substring(0, 800)}…' : descRaw;
+          final desc = descRaw.length > 800
+              ? '${descRaw.substring(0, 800)}…'
+              : descRaw;
 
           return RefreshIndicator(
             onRefresh: () async {
@@ -133,16 +133,15 @@ class _CoinHeroSection extends StatelessWidget {
             width: 56,
             height: 56,
             fit: BoxFit.cover,
-            errorBuilder:
-                (context, error, stackTrace) =>
-                    Icon(Icons.currency_bitcoin, size: 56, color: palette.subtleText),
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.currency_bitcoin,
+              size: 56,
+              color: palette.subtleText,
+            ),
           ),
         ),
         const SizedBox(height: 16),
-        Text(
-          coin.name.toUpperCase(),
-          style: context.coinHeroName,
-        ),
+        Text(coin.name.toUpperCase(), style: context.coinHeroName),
         const SizedBox(height: 12),
         Text(
           formatCoinPrice(coin.currentPriceUsd),
@@ -180,18 +179,14 @@ class _MarketStatsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final maxSupply =
-        detail?.maxSupply == null
-            ? l10n.uncappedSupply
-            : formatSupplyAmount(detail?.maxSupply, summary.symbol);
+    final maxSupply = detail?.maxSupply == null
+        ? l10n.uncappedSupply
+        : formatSupplyAmount(detail?.maxSupply, summary.symbol);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.marketStats,
-          style: context.sectionLabel,
-        ),
+        Text(l10n.marketStats, style: context.sectionLabel),
         const SizedBox(height: 12),
         GridView.count(
           crossAxisCount: 2,
@@ -221,12 +216,12 @@ class _MarketStatsSection extends StatelessWidget {
             ),
             _StatCard(
               label: l10n.statCirculatingSupply,
-              value: formatSupplyAmount(detail?.circulatingSupply, summary.symbol),
+              value: formatSupplyAmount(
+                detail?.circulatingSupply,
+                summary.symbol,
+              ),
             ),
-            _StatCard(
-              label: l10n.statMaxSupply,
-              value: maxSupply,
-            ),
+            _StatCard(label: l10n.statMaxSupply, value: maxSupply),
           ],
         ),
       ],
@@ -277,8 +272,9 @@ class _StatCard extends StatelessWidget {
             Text(
               formatPercentChange(changePercent),
               style: AppConstantTextStyle.changeBadge(
-                color:
-                    changePercent! >= 0 ? palette.positive : palette.negative,
+                color: changePercent! >= 0
+                    ? palette.positive
+                    : palette.negative,
                 compact: true,
               ),
             ),
@@ -305,10 +301,7 @@ class _AboutSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.aboutCoin(name.toUpperCase()),
-          style: context.sectionLabel,
-        ),
+        Text(l10n.aboutCoin(name.toUpperCase()), style: context.sectionLabel),
         const SizedBox(height: 12),
         Text(
           description,

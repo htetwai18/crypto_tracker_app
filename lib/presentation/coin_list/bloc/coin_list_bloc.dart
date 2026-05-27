@@ -75,10 +75,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
     return null;
   }
 
-  Future<void> _onOpened(
-    CoinListOpened event,
-    Emitter<CoinListState> emit,
-  ) =>
+  Future<void> _onOpened(CoinListOpened event, Emitter<CoinListState> emit) =>
       _loadTrendingPlusMarkets(emit, remoteMarketsPreferred: false);
 
   void _onConnectivityChanged(
@@ -171,13 +168,12 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
 
     if (emit.isDone) return;
 
-    final cachedFetchedAt =
-        mk.isOk
-            ? await _getMarketsCacheFetchedAtUseCase(
-              page: page,
-              searchQuery: searchQuery,
-            )
-            : null;
+    final cachedFetchedAt = mk.isOk
+        ? await _getMarketsCacheFetchedAtUseCase(
+            page: page,
+            searchQuery: searchQuery,
+          )
+        : null;
 
     mk.fold(
       (failure) {
@@ -203,21 +199,16 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
             global: globalSnapshot,
             trending: trendingSnapshot,
             coins: initialPage ? list : state.coins,
-            currentPage:
-                initialPage
-                    ? 1
-                    : state.currentPage,
-            hasMore:
-                list.length >= ApiConstants.defaultPerPage,
+            currentPage: initialPage ? 1 : state.currentPage,
+            hasMore: list.length >= ApiConstants.defaultPerPage,
             clearErrorMessage: true,
             emptySearch:
-                searchQuery.trim().isNotEmpty &&
-                initialPage &&
-                list.isEmpty,
+                searchQuery.trim().isNotEmpty && initialPage && list.isEmpty,
             clearLoadMoreBlockedUntil: true,
             clearActionMessage: true,
-            cachedMarketsFetchedAt:
-                initialPage ? cachedFetchedAt : state.cachedMarketsFetchedAt,
+            cachedMarketsFetchedAt: initialPage
+                ? cachedFetchedAt
+                : state.cachedMarketsFetchedAt,
           ),
         );
       },
@@ -278,12 +269,7 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
             'Home pagination: page $nextPage returned no coins (end of list)',
             name: 'CoinListBloc',
           );
-          emit(
-            state.copyWith(
-              isLoadingMore: false,
-              hasMore: false,
-            ),
-          );
+          emit(state.copyWith(isLoadingMore: false, hasMore: false));
           return;
         }
 
@@ -376,12 +362,9 @@ class CoinListBloc extends Bloc<CoinListEvent, CoinListState> {
       coinId: event.coinId,
       asFavorite: toggleOn,
     );
-    result.fold(
-      (failure) {
-        emit(state.copyWith(actionMessage: failure.message));
-      },
-      (_) {},
-    );
+    result.fold((failure) {
+      emit(state.copyWith(actionMessage: failure.message));
+    }, (_) {});
   }
 
   void _onFavoriteIdsEmitted(

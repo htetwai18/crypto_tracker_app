@@ -5,10 +5,7 @@ abstract interface class CoinLocalDataSource {
 
   Future<bool> isFavorite(String coinId);
 
-  Future<void> setFavorite({
-    required String coinId,
-    required bool favorite,
-  });
+  Future<void> setFavorite({required String coinId, required bool favorite});
 
   Future<String?> cachedMarketsPage({
     required int page,
@@ -97,8 +94,7 @@ final class CoinLocalDataSourceImpl implements CoinLocalDataSource {
   Future<DateTime?> cachedMarketsPageFetchedAt({
     required int page,
     required String normalizedSearchQuery,
-  }) =>
-      _dao.getMarketsPageFetchedAt(page, normalizedSearchQuery);
+  }) => _dao.getMarketsPageFetchedAt(page, normalizedSearchQuery);
 
   @override
   Future<void> clearMarketsCache() => _dao.clearMarketsCache();

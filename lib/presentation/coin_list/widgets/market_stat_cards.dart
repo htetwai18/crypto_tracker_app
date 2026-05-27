@@ -43,11 +43,7 @@ class MarketStatCards extends StatelessWidget {
 }
 
 class _StatCard extends StatelessWidget {
-  const _StatCard({
-    required this.label,
-    required this.value,
-    this.trailing,
-  });
+  const _StatCard({required this.label, required this.value, this.trailing});
 
   final String label;
   final String value;
@@ -67,19 +63,10 @@ class _StatCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            label,
-            style: context.sectionLabel.copyWith(letterSpacing: 0.6),
-          ),
+          Text(label, style: context.sectionLabel.copyWith(letterSpacing: 0.6)),
           const SizedBox(height: 10),
-          Text(
-            value,
-            style: context.appTextStyles.headlineSmall,
-          ),
-          if (trailing != null) ...[
-            const SizedBox(height: 8),
-            trailing!,
-          ],
+          Text(value, style: context.appTextStyles.headlineSmall),
+          if (trailing != null) ...[const SizedBox(height: 8), trailing!],
         ],
       ),
     );

@@ -21,8 +21,7 @@ final class CoinMarketDto {
     name: j['name'] as String? ?? '',
     image: j['image'] as String? ?? '',
     currentPrice: (j['current_price'] as num?)?.toDouble() ?? 0,
-    priceChangePct24h:
-        (j['price_change_percentage_24h'] as num?)?.toDouble(),
+    priceChangePct24h: (j['price_change_percentage_24h'] as num?)?.toDouble(),
     marketCap: (j['market_cap'] as num?)?.toDouble(),
     marketCapRank: (j['market_cap_rank'] as num?)?.toInt(),
   );

@@ -47,10 +47,9 @@ class CoinMarketRow extends StatelessWidget {
     final palette = context.palette;
     final text = context.appTextStyles;
     final rank = coin.marketCapRank;
-    final subtitle =
-        coin.marketCapUsd == null
-            ? coin.symbol
-            : '${coin.symbol} · ${formatCompactUsd(coin.marketCapUsd)}';
+    final subtitle = coin.marketCapUsd == null
+        ? coin.symbol
+        : '${coin.symbol} · ${formatCompactUsd(coin.marketCapUsd)}';
 
     return Material(
       color: Colors.transparent,

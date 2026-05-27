@@ -83,10 +83,17 @@ final class AppPalette extends ThemeExtension<AppPalette> {
   AppPalette lerp(ThemeExtension<AppPalette>? other, double t) {
     if (other is! AppPalette) return this;
     return AppPalette(
-      screenBackground: Color.lerp(screenBackground, other.screenBackground, t)!,
+      screenBackground: Color.lerp(
+        screenBackground,
+        other.screenBackground,
+        t,
+      )!,
       cardBackground: Color.lerp(cardBackground, other.cardBackground, t)!,
-      statCardBackground:
-          Color.lerp(statCardBackground, other.statCardBackground, t)!,
+      statCardBackground: Color.lerp(
+        statCardBackground,
+        other.statCardBackground,
+        t,
+      )!,
       subtleText: Color.lerp(subtleText, other.subtleText, t)!,
       positive: Color.lerp(positive, other.positive, t)!,
       negative: Color.lerp(negative, other.negative, t)!,

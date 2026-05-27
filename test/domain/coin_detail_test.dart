@@ -19,10 +19,7 @@ CoinDetail _detail(Map<String, String> descriptions) => CoinDetail(
 void main() {
   group('CoinDetail.descriptionFor', () {
     test('returns localized description when available', () {
-      final detail = _detail({
-        'en': 'English text',
-        'my': 'Myanmar text',
-      });
+      final detail = _detail({'en': 'English text', 'my': 'Myanmar text'});
 
       expect(detail.descriptionFor('my'), 'Myanmar text');
     });

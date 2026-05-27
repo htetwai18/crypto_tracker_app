@@ -19,16 +19,16 @@ final class StubCryptoRepository implements CryptoRepository {
     int perPage,
     String searchQuery,
     bool forceRemote,
-  })? marketsAnswer;
+  })?
+  marketsAnswer;
 
-  Future<Result<CoinDetail>> Function(
-    String coinId, {
-    bool forceRemote,
-  })? detailAnswer;
+  Future<Result<CoinDetail>> Function(String coinId, {bool forceRemote})?
+  detailAnswer;
   Future<Result<bool>> Function({
     required String coinId,
     required bool favorite,
-  })? setFavoriteAnswer;
+  })?
+  setFavoriteAnswer;
 
   int clearMarketsCacheCalls = 0;
   DateTime? marketsCacheFetchedAt;

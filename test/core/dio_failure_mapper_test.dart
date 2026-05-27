@@ -13,13 +13,12 @@ void main() {
       requestOptions: RequestOptions(path: '/'),
       type: type,
       message: message,
-      response:
-          statusCode == null
-              ? null
-              : Response(
-                requestOptions: RequestOptions(path: '/'),
-                statusCode: statusCode,
-              ),
+      response: statusCode == null
+          ? null
+          : Response(
+              requestOptions: RequestOptions(path: '/'),
+              statusCode: statusCode,
+            ),
     );
   }
 

@@ -26,8 +26,8 @@ final class GlobalMarketDto {
     final vol = data['total_volume'] as Map<String, dynamic>?;
     final capUsd = (cap?['usd'] as num?)?.toDouble();
     final volUsd = (vol?['usd'] as num?)?.toDouble();
-    final capChange =
-        (data['market_cap_change_percentage_24h_usd'] as num?)?.toDouble();
+    final capChange = (data['market_cap_change_percentage_24h_usd'] as num?)
+        ?.toDouble();
     if (capUsd == null || volUsd == null) return null;
     return GlobalMarketOverview(
       totalMarketCapUsd: capUsd,

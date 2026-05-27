@@ -28,10 +28,12 @@ final class CoinDetailState extends Equatable {
       detail: detail ?? this.detail,
       favoriteIds: favoriteIds ?? this.favoriteIds,
       isLoading: isLoading ?? this.isLoading,
-      failureMessage:
-          clearFailureMessage ? null : (failureMessage ?? this.failureMessage),
-      actionMessage:
-          clearActionMessage ? null : (actionMessage ?? this.actionMessage),
+      failureMessage: clearFailureMessage
+          ? null
+          : (failureMessage ?? this.failureMessage),
+      actionMessage: clearActionMessage
+          ? null
+          : (actionMessage ?? this.actionMessage),
     );
   }
 

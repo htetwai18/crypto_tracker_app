@@ -21,22 +21,25 @@ class AppDao extends DatabaseAccessor<AppDatabase> with _$AppDaoMixin {
 
   // --- Favorites ---
 
-  Future<List<Favorite>> get allFavorites =>
-      (select(favorites)..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).get();
+  Future<List<Favorite>> get allFavorites => (select(
+    favorites,
+  )..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).get();
 
-  Stream<List<Favorite>> watchFavorites() =>
-      (select(favorites)..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).watch();
+  Stream<List<Favorite>> watchFavorites() => (select(
+    favorites,
+  )..orderBy([(t) => OrderingTerm.desc(t.createdAt)])).watch();
 
   Future<bool> isFavorite(String coinId) async {
-    final row = await (select(favorites)..where((t) => t.coinId.equals(coinId)))
-        .getSingleOrNull();
+    final row = await (select(
+      favorites,
+    )..where((t) => t.coinId.equals(coinId))).getSingleOrNull();
     return row != null;
   }
 
   Future<void> addFavorite(String coinId) async {
-    await into(favorites).insertOnConflictUpdate(
-      FavoritesCompanion.insert(coinId: coinId),
-    );
+    await into(
+      favorites,
+    ).insertOnConflictUpdate(FavoritesCompanion.insert(coinId: coinId));
   }
 
   Future<void> removeFavorite(String coinId) async {
@@ -46,12 +49,16 @@ class AppDao extends DatabaseAccessor<AppDatabase> with _$AppDaoMixin {
   // --- Markets pages ---
 
   Future<CacheMarketsPage?> getMarketsPage(int page, String searchQuery) {
-    return (select(cacheMarketsPages)
-          ..where((t) => t.page.equals(page) & t.searchQuery.equals(searchQuery)))
+    return (select(cacheMarketsPages)..where(
+          (t) => t.page.equals(page) & t.searchQuery.equals(searchQuery),
+        ))
         .getSingleOrNull();
   }
 
-  Future<DateTime?> getMarketsPageFetchedAt(int page, String searchQuery) async {
+  Future<DateTime?> getMarketsPageFetchedAt(
+    int page,
+    String searchQuery,
+  ) async {
     final row = await getMarketsPage(page, searchQuery);
     return row?.fetchedAt;
   }
@@ -76,8 +83,9 @@ class AppDao extends DatabaseAccessor<AppDatabase> with _$AppDaoMixin {
   // --- Trending ---
 
   Future<CacheTrendingData?> getTrending() {
-    return (select(cacheTrending)..where((t) => t.id.equals(_singletonCacheId)))
-        .getSingleOrNull();
+    return (select(
+      cacheTrending,
+    )..where((t) => t.id.equals(_singletonCacheId))).getSingleOrNull();
   }
 
   Future<DateTime?> getTrendingFetchedAt() async {
@@ -98,8 +106,9 @@ class AppDao extends DatabaseAccessor<AppDatabase> with _$AppDaoMixin {
   // --- Global ---
 
   Future<CacheGlobalData?> getGlobal() {
-    return (select(cacheGlobal)..where((t) => t.id.equals(_singletonCacheId)))
-        .getSingleOrNull();
+    return (select(
+      cacheGlobal,
+    )..where((t) => t.id.equals(_singletonCacheId))).getSingleOrNull();
   }
 
   Future<DateTime?> getGlobalFetchedAt() async {
@@ -120,8 +129,9 @@ class AppDao extends DatabaseAccessor<AppDatabase> with _$AppDaoMixin {
   // --- Coin detail ---
 
   Future<CacheCoinDetailData?> getCoinDetail(String coinId) {
-    return (select(cacheCoinDetail)..where((t) => t.coinId.equals(coinId)))
-        .getSingleOrNull();
+    return (select(
+      cacheCoinDetail,
+    )..where((t) => t.coinId.equals(coinId))).getSingleOrNull();
   }
 
   Future<DateTime?> getCoinDetailFetchedAt(String coinId) async {

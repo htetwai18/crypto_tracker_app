@@ -55,10 +55,9 @@ class _CoinListPageState extends State<CoinListPage> {
     return Scaffold(
       body: SafeArea(
         child: BlocConsumer<CoinListBloc, CoinListState>(
-          listenWhen:
-              (previous, current) =>
-                  previous.actionMessage != current.actionMessage &&
-                  current.actionMessage != null,
+          listenWhen: (previous, current) =>
+              previous.actionMessage != current.actionMessage &&
+              current.actionMessage != null,
           listener: (context, state) {
             final msg = state.actionMessage;
             if (msg != null) {
@@ -103,10 +102,9 @@ class _CoinListPageState extends State<CoinListPage> {
                             const SizedBox(height: 16),
                             if (!state.offlineBanner)
                               FilledButton(
-                                onPressed:
-                                    () => context.read<CoinListBloc>().add(
-                                      const CoinListRefreshRequested(),
-                                    ),
+                                onPressed: () => context
+                                    .read<CoinListBloc>()
+                                    .add(const CoinListRefreshRequested()),
                                 child: Text(l10n.retry),
                               ),
                           ],
@@ -138,7 +136,11 @@ class _CoinListPageState extends State<CoinListPage> {
                         ),
                         child: Row(
                           children: [
-                            Icon(Icons.cloud_off, size: 18, color: palette.subtleText),
+                            Icon(
+                              Icons.cloud_off,
+                              size: 18,
+                              color: palette.subtleText,
+                            ),
                             const SizedBox(width: 8),
                             Expanded(
                               child: Text(
@@ -156,7 +158,9 @@ class _CoinListPageState extends State<CoinListPage> {
                       ),
                     ),
                   ),
-                SliverToBoxAdapter(child: MarketStatCards(global: state.global)),
+                SliverToBoxAdapter(
+                  child: MarketStatCards(global: state.global),
+                ),
                 SliverToBoxAdapter(
                   child: TrendingCarousel(
                     trending: state.trending,
@@ -166,10 +170,9 @@ class _CoinListPageState extends State<CoinListPage> {
                 SliverToBoxAdapter(
                   child: MarketsSearchField(
                     controller: _searchController,
-                    onChanged:
-                        (q) => context.read<CoinListBloc>().add(
-                          CoinListSearchQueryChanged(q),
-                        ),
+                    onChanged: (q) => context.read<CoinListBloc>().add(
+                      CoinListSearchQueryChanged(q),
+                    ),
                   ),
                 ),
                 if (state.isSearching)
@@ -206,22 +209,18 @@ class _CoinListPageState extends State<CoinListPage> {
                       ),
                     ),
                   SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final c = state.coins[index];
-                        final fav = state.favoriteIds.contains(c.id);
-                        return CoinMarketRow(
-                          coin: c,
-                          isFavorite: fav,
-                          onTap: () => openCoinDetail(context, c),
-                          onFavoritePressed:
-                              () => context.read<CoinListBloc>().add(
-                                CoinListFavoritePressed(c.id),
-                              ),
-                        );
-                      },
-                      childCount: state.coins.length,
-                    ),
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                      final c = state.coins[index];
+                      final fav = state.favoriteIds.contains(c.id);
+                      return CoinMarketRow(
+                        coin: c,
+                        isFavorite: fav,
+                        onTap: () => openCoinDetail(context, c),
+                        onFavoritePressed: () => context
+                            .read<CoinListBloc>()
+                            .add(CoinListFavoritePressed(c.id)),
+                      );
+                    }, childCount: state.coins.length),
                   ),
                 ],
                 if (state.isLoadingMore)

@@ -29,15 +29,9 @@ abstract final class AppRoute {
   static Route<dynamic>? onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       case AppRoutes.splash:
-        return _buildRoute(
-          settings: settings,
-          child: const SplashPage(),
-        );
+        return _buildRoute(settings: settings, child: const SplashPage());
       case AppRoutes.home:
-        return _buildRoute(
-          settings: settings,
-          child: const CoinListPage(),
-        );
+        return _buildRoute(settings: settings, child: const CoinListPage());
       case AppRoutes.coinDetail:
         final args = settings.arguments;
         if (args is! CoinDetailRouteArgs) {
@@ -50,13 +44,12 @@ abstract final class AppRoute {
         return _buildRoute(
           settings: settings,
           child: BlocProvider(
-            create:
-                (_) => CoinDetailBloc(
-                  coinId: summary.id,
-                  watchFavoriteIds: sl(),
-                  getCoinDetailUseCase: sl(),
-                  toggleFavoriteUseCase: sl(),
-                ),
+            create: (_) => CoinDetailBloc(
+              coinId: summary.id,
+              watchFavoriteIds: sl(),
+              getCoinDetailUseCase: sl(),
+              toggleFavoriteUseCase: sl(),
+            ),
             child: CoinDetailPage(summary: summary),
           ),
           transition: AppRouteTransition.slideWithFade,
@@ -95,10 +88,7 @@ abstract final class AppRoute {
     AppRouteTransition transition = AppRouteTransition.none,
   }) {
     if (transition == AppRouteTransition.none) {
-      return MaterialPageRoute<T>(
-        settings: settings,
-        builder: (_) => child,
-      );
+      return MaterialPageRoute<T>(settings: settings, builder: (_) => child);
     }
 
     return PageRouteBuilder<T>(
@@ -118,11 +108,7 @@ abstract final class AppRoute {
   }
 }
 
-enum AppRouteTransition {
-  none,
-  fade,
-  slideWithFade,
-}
+enum AppRouteTransition { none, fade, slideWithFade }
 
 abstract final class _AppRouteTransitions {
   static Widget build({
@@ -135,10 +121,7 @@ abstract final class _AppRouteTransitions {
       case AppRouteTransition.none:
         return child;
       case AppRouteTransition.fade:
-        return _fade(
-          animation: animation,
-          child: child,
-        );
+        return _fade(animation: animation, child: child);
       case AppRouteTransition.slideWithFade:
         return _slideWithFade(
           animation: animation,
@@ -153,10 +136,7 @@ abstract final class _AppRouteTransitions {
     required Widget child,
   }) {
     return FadeTransition(
-      opacity: CurvedAnimation(
-        parent: animation,
-        curve: Curves.easeInOut,
-      ),
+      opacity: CurvedAnimation(parent: animation, curve: Curves.easeInOut),
       child: child,
     );
   }
@@ -175,10 +155,7 @@ abstract final class _AppRouteTransitions {
 
     return SlideTransition(
       position: slideIn,
-      child: FadeTransition(
-        opacity: fadeIn,
-        child: child,
-      ),
+      child: FadeTransition(opacity: fadeIn, child: child),
     );
   }
 }

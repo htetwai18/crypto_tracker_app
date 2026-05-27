@@ -13,8 +13,8 @@ final class AppThemeController extends InheritedWidget {
   final ValueChanged<ThemeMode> setThemeMode;
 
   static AppThemeController of(BuildContext context) {
-    final controller =
-        context.dependOnInheritedWidgetOfExactType<AppThemeController>();
+    final controller = context
+        .dependOnInheritedWidgetOfExactType<AppThemeController>();
     assert(controller != null, 'AppThemeController not found in context');
     return controller!;
   }

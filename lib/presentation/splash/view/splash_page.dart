@@ -33,9 +33,10 @@ class _SplashPageState extends State<SplashPage>
       parent: _controller,
       curve: Curves.easeOut,
     );
-    _scaleAnimation = Tween<double>(begin: 0.88, end: 1).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 0.88,
+      end: 1,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
 
     _controller.forward();
     _navigateToHome();

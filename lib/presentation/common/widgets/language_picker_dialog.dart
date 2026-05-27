@@ -94,10 +94,7 @@ class _LanguageOptionTile extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: Text(
-                  label,
-                  style: context.appTextStyles.titleSmall,
-                ),
+                child: Text(label, style: context.appTextStyles.titleSmall),
               ),
               if (selected)
                 Icon(Icons.check_circle, color: palette.positive, size: 22),

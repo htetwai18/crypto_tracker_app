@@ -51,8 +51,7 @@ class _CryptoAppState extends State<CryptoApp> {
         themeMode: _themeMode,
         setThemeMode: _setThemeMode,
         child: BlocProvider(
-          create:
-              (_) => sl<CoinListBloc>(),
+          create: (_) => sl<CoinListBloc>(),
           child: MaterialApp(
             locale: _locale,
             onGenerateTitle: (ctx) =>

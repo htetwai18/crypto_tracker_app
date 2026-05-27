@@ -97,15 +97,12 @@ final class CryptoRepositoryImpl implements CryptoRepository {
       );
       final dtos = _decodeMarketsCached(cached);
       if (dtos == null) {
-        final msg =
-            online
-                ? 'Could not refresh markets.'
-                : 'No network connection and no cached data for this screen.';
+        final msg = online
+            ? 'Could not refresh markets.'
+            : 'No network connection and no cached data for this screen.';
         return Err(NetworkUnavailableFailure(message: msg));
       }
-      return Ok(
-        dtos.map((dto) => dto.toEntity()).toList(growable: false),
-      );
+      return Ok(dtos.map((dto) => dto.toEntity()).toList(growable: false));
     }
 
     if (!forceRemote) {
@@ -122,16 +119,20 @@ final class CryptoRepositoryImpl implements CryptoRepository {
     if (!online) return loadFromDisk();
 
     Future<void> persistDtos(List<CoinMarketDto> dtos) async {
-      final raw = dtos.map((dto) => {
-            'id': dto.id,
-            'symbol': dto.symbol.toLowerCase(),
-            'name': dto.name,
-            'image': dto.image,
-            'current_price': dto.currentPrice,
-            'price_change_percentage_24h': dto.priceChangePct24h,
-            'market_cap': dto.marketCap,
-            'market_cap_rank': dto.marketCapRank,
-          }).toList();
+      final raw = dtos
+          .map(
+            (dto) => {
+              'id': dto.id,
+              'symbol': dto.symbol.toLowerCase(),
+              'name': dto.name,
+              'image': dto.image,
+              'current_price': dto.currentPrice,
+              'price_change_percentage_24h': dto.priceChangePct24h,
+              'market_cap': dto.marketCap,
+              'market_cap_rank': dto.marketCapRank,
+            },
+          )
+          .toList();
       await _local.persistMarketsPage(
         page: page,
         normalizedSearchQuery: key,
@@ -154,11 +155,10 @@ final class CryptoRepositoryImpl implements CryptoRepository {
           await persistDtos([]);
           return const Ok([]);
         }
-        final chunk = idsAll.skip(start).take(perPage).toList(
-          growable: false,
-        );
-        final rows =
-            chunk.isEmpty ? const [] : await _remote.fetchMarketsForIds(chunk);
+        final chunk = idsAll.skip(start).take(perPage).toList(growable: false);
+        final rows = chunk.isEmpty
+            ? const []
+            : await _remote.fetchMarketsForIds(chunk);
         dtos = CoinMarketDto.decodeList(rows);
       }
 
@@ -177,31 +177,26 @@ final class CryptoRepositoryImpl implements CryptoRepository {
 
   @override
   Future<Result<(GlobalMarketOverview?, List<TrendingCoin>)>>
-  getTrendingAndGlobal({
-    bool forceRemote = false,
-  }) async {
+  getTrendingAndGlobal({bool forceRemote = false}) async {
     final online = await _networkInfo.isConnected;
 
     Future<Result<(GlobalMarketOverview?, List<TrendingCoin>)>>
     loadCombinedFromDisk() async {
       final gJson = await _local.cachedGlobalJson();
       final tJson = await _local.cachedTrendingJson();
-      final global =
-          gJson != null
-              ? GlobalMarketDto.tryDecode(gJson)?.toEntityOrNull()
-              : null;
-      final trendingRaw =
-          tJson != null
-              ? TrendingResponseDto.tryDecode(tJson)
-              : null;
+      final global = gJson != null
+          ? GlobalMarketDto.tryDecode(gJson)?.toEntityOrNull()
+          : null;
+      final trendingRaw = tJson != null
+          ? TrendingResponseDto.tryDecode(tJson)
+          : null;
       final trending = trendingRaw?.toTrendingCoins() ?? <TrendingCoin>[];
       if (global == null && trending.isEmpty) {
         return Err(
           NetworkUnavailableFailure(
-            message:
-                online
-                    ? 'Could not refresh header data.'
-                    : 'No cached global / trending snapshots yet.',
+            message: online
+                ? 'Could not refresh header data.'
+                : 'No cached global / trending snapshots yet.',
           ),
         );
       }
@@ -228,10 +223,10 @@ final class CryptoRepositoryImpl implements CryptoRepository {
       await _local.persistGlobalJson(jsonEncode(rawGlobal));
       await _local.persistTrendingJson(jsonEncode(rawTrending));
 
-      final global =
-          GlobalMarketDto.fromJson(rawGlobal).toEntityOrNull();
-      final trending =
-          TrendingResponseDto.fromJson(rawTrending).toTrendingCoins();
+      final global = GlobalMarketDto.fromJson(rawGlobal).toEntityOrNull();
+      final trending = TrendingResponseDto.fromJson(
+        rawTrending,
+      ).toTrendingCoins();
 
       return Ok((global, trending));
     } on DioException catch (e) {
@@ -256,10 +251,9 @@ final class CryptoRepositoryImpl implements CryptoRepository {
         final dto = CoinDetailDto.tryDecode(json);
         if (dto != null) return Ok(dto.toEntity());
       }
-      final msg =
-          await _networkInfo.isConnected
-              ? 'Coin details unavailable.'
-              : 'Offline and this coin has not been cached yet.';
+      final msg = await _networkInfo.isConnected
+          ? 'Coin details unavailable.'
+          : 'Offline and this coin has not been cached yet.';
       return Err(NetworkUnavailableFailure(message: msg));
     }
 

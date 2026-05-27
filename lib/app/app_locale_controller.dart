@@ -13,8 +13,8 @@ final class AppLocaleController extends InheritedWidget {
   final ValueChanged<Locale> setLocale;
 
   static AppLocaleController of(BuildContext context) {
-    final controller =
-        context.dependOnInheritedWidgetOfExactType<AppLocaleController>();
+    final controller = context
+        .dependOnInheritedWidgetOfExactType<AppLocaleController>();
     assert(controller != null, 'AppLocaleController not found in context');
     return controller!;
   }

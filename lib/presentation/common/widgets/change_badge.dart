@@ -41,10 +41,7 @@ class ChangeBadge extends StatelessWidget {
       ),
       child: Text(
         formatPercentChange(changePercent),
-        style: AppConstantTextStyle.changeBadge(
-          color: fg,
-          compact: compact,
-        ),
+        style: AppConstantTextStyle.changeBadge(color: fg, compact: compact),
       ),
     );
   }

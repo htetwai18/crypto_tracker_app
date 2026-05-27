@@ -34,11 +34,7 @@ Future<void> configureDependencies() async {
     () => CoinLocalDataSourceImpl(sl<AppDatabase>().appDao),
   );
   sl.registerLazySingleton<CryptoRepository>(
-    () => CryptoRepositoryImpl(
-      networkInfo: sl(),
-      remote: sl(),
-      local: sl(),
-    ),
+    () => CryptoRepositoryImpl(networkInfo: sl(), remote: sl(), local: sl()),
   );
 
   sl.registerFactory(() => WatchFavoriteIdsUseCase(sl()));

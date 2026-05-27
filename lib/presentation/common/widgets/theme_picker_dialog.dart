@@ -106,10 +106,7 @@ class _ThemeOptionTile extends StatelessWidget {
               Icon(icon, color: palette.subtleText, size: 22),
               const SizedBox(width: 12),
               Expanded(
-                child: Text(
-                  label,
-                  style: context.appTextStyles.titleSmall,
-                ),
+                child: Text(label, style: context.appTextStyles.titleSmall),
               ),
               if (selected)
                 Icon(Icons.check_circle, color: palette.positive, size: 22),

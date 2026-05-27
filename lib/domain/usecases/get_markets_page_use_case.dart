@@ -13,11 +13,10 @@ final class GetMarketsPageUseCase {
     int perPage = ApiConstants.defaultPerPage,
     String searchQuery = '',
     bool forceRemote = false,
-  }) =>
-      _repository.getMarketsPage(
-        page: page,
-        perPage: perPage,
-        searchQuery: searchQuery,
-        forceRemote: forceRemote,
-      );
+  }) => _repository.getMarketsPage(
+    page: page,
+    perPage: perPage,
+    searchQuery: searchQuery,
+    forceRemote: forceRemote,
+  );
 }

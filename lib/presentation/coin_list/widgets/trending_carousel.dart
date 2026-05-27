@@ -54,10 +54,7 @@ class TrendingCarousel extends StatelessWidget {
           padding: const EdgeInsets.fromLTRB(20, 20, 20, 12),
           child: Row(
             children: [
-              Text(
-                l10n.trendingSectionLabel,
-                style: sectionStyle,
-              ),
+              Text(l10n.trendingSectionLabel, style: sectionStyle),
               const Spacer(),
               Text(
                 l10n.trendingCountLabel(trending.length),
@@ -105,8 +102,7 @@ class _TrendingCard extends StatelessWidget {
     final text = context.appTextStyles;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final rank = item.marketCapRank ?? matched?.marketCapRank;
-    final cardColor =
-        isDark ? palette.cardBackground : const Color(0xFFF7F4EF);
+    final cardColor = isDark ? palette.cardBackground : const Color(0xFFF7F4EF);
 
     return Material(
       color: Colors.transparent,
@@ -120,16 +116,15 @@ class _TrendingCard extends StatelessWidget {
             color: cardColor,
             borderRadius: BorderRadius.circular(14),
             border: Border.all(color: palette.border),
-            boxShadow:
-                isDark
-                    ? null
-                    : [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.04),
-                        blurRadius: 8,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+            boxShadow: isDark
+                ? null
+                : [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.04),
+                      blurRadius: 8,
+                      offset: const Offset(0, 2),
+                    ),
+                  ],
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -143,12 +138,11 @@ class _TrendingCard extends StatelessWidget {
                       width: 32,
                       height: 32,
                       fit: BoxFit.cover,
-                      errorBuilder:
-                          (context, error, stackTrace) => Icon(
-                            Icons.currency_bitcoin,
-                            size: 32,
-                            color: palette.subtleText,
-                          ),
+                      errorBuilder: (context, error, stackTrace) => Icon(
+                        Icons.currency_bitcoin,
+                        size: 32,
+                        color: palette.subtleText,
+                      ),
                     ),
                   ),
                   const SizedBox(width: 8),

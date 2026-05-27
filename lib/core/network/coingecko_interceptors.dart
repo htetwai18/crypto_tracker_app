@@ -56,10 +56,9 @@ final class CoinGeckoInterceptors extends QueuedInterceptor {
 
     final retryAfterHeader = err.response?.headers.value('retry-after');
     final retryAfterSecs = int.tryParse(retryAfterHeader ?? '');
-    final delay =
-        retryAfterSecs != null && retryAfterSecs > 0
-            ? Duration(seconds: retryAfterSecs.clamp(1, 60))
-            : Duration(seconds: 2 * (retryCount + 1));
+    final delay = retryAfterSecs != null && retryAfterSecs > 0
+        ? Duration(seconds: retryAfterSecs.clamp(1, 60))
+        : Duration(seconds: 2 * (retryCount + 1));
 
     await Future<void>.delayed(delay);
 

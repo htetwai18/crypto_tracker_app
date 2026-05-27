@@ -21,10 +21,10 @@ class MarketsSearchField extends StatelessWidget {
     final l10n = AppLocalizations.of(context)!;
     final palette = context.palette;
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final fillColor =
-        isDark ? palette.statCardBackground : const Color(0xFFF5F3F0);
-    final borderColor =
-        isDark ? palette.border : const Color(0xFFE5E2DE);
+    final fillColor = isDark
+        ? palette.statCardBackground
+        : const Color(0xFFF5F3F0);
+    final borderColor = isDark ? palette.border : const Color(0xFFE5E2DE);
 
     final outlineBorder = OutlineInputBorder(
       borderRadius: BorderRadius.circular(_borderRadius),
@@ -46,11 +46,7 @@ class MarketsSearchField extends StatelessWidget {
             fillColor: fillColor,
             hintText: l10n.searchHint,
             hintStyle: AppConstantTextStyle.inputHint(palette),
-            prefixIcon: Icon(
-              Icons.search,
-              size: 20,
-              color: palette.subtleText,
-            ),
+            prefixIcon: Icon(Icons.search, size: 20, color: palette.subtleText),
             prefixIconConstraints: const BoxConstraints(
               minWidth: 44,
               minHeight: _height,

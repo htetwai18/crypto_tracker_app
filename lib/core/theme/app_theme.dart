@@ -35,7 +35,10 @@ abstract final class AppTheme {
         filled: true,
         fillColor: palette.cardBackground,
         hintStyle: AppConstantTextStyle.inputHint(palette),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: palette.border),
@@ -46,7 +49,9 @@ abstract final class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: palette.subtleText.withValues(alpha: 0.6)),
+          borderSide: BorderSide(
+            color: palette.subtleText.withValues(alpha: 0.6),
+          ),
         ),
       ),
     );
@@ -84,7 +89,10 @@ abstract final class AppTheme {
         filled: true,
         fillColor: palette.cardBackground,
         hintStyle: AppConstantTextStyle.inputHint(palette),
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+        contentPadding: const EdgeInsets.symmetric(
+          horizontal: 16,
+          vertical: 14,
+        ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
           borderSide: BorderSide(color: palette.border),
@@ -95,7 +103,9 @@ abstract final class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(14),
-          borderSide: BorderSide(color: palette.subtleText.withValues(alpha: 0.6)),
+          borderSide: BorderSide(
+            color: palette.subtleText.withValues(alpha: 0.6),
+          ),
         ),
       ),
     );

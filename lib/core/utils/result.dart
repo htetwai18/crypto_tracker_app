@@ -22,11 +22,10 @@ final class Err<T> extends Result<T> {
 }
 
 extension ResultX<T> on Result<T> {
-  R fold<R>(R Function(Failure f) err, R Function(T v) ok) =>
-      switch (this) {
-        Ok(:final value) => ok(value),
-        Err(:final failure) => err(failure),
-      };
+  R fold<R>(R Function(Failure f) err, R Function(T v) ok) => switch (this) {
+    Ok(:final value) => ok(value),
+    Err(:final failure) => err(failure),
+  };
 
   Failure? failureOrNull() => switch (this) {
     Err(:final failure) => failure,

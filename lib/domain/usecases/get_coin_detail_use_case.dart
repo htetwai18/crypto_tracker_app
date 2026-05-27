@@ -7,12 +7,6 @@ final class GetCoinDetailUseCase {
 
   final CryptoRepository _repository;
 
-  Future<Result<CoinDetail>> call(
-    String coinId, {
-    bool forceRemote = false,
-  }) =>
-      _repository.getCoinDetail(
-        coinId,
-        forceRemote: forceRemote,
-      );
+  Future<Result<CoinDetail>> call(String coinId, {bool forceRemote = false}) =>
+      _repository.getCoinDetail(coinId, forceRemote: forceRemote);
 }

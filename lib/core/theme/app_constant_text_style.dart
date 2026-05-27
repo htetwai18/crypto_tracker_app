@@ -8,15 +8,13 @@ abstract final class AppConstantTextStyle {
     required Brightness brightness,
     required AppPalette palette,
   }) {
-    final onSurface =
-        brightness == Brightness.dark ? Colors.white : const Color(0xFF1C1C1E);
+    final onSurface = brightness == Brightness.dark
+        ? Colors.white
+        : const Color(0xFF1C1C1E);
 
     final base = GoogleFonts.interTextTheme(
       ThemeData(brightness: brightness).textTheme,
-    ).apply(
-      bodyColor: onSurface,
-      displayColor: onSurface,
-    );
+    ).apply(bodyColor: onSurface, displayColor: onSurface);
 
     return base.copyWith(
       displaySmall: GoogleFonts.inter(
@@ -163,14 +161,12 @@ abstract final class AppConstantTextStyle {
     color: onSurface,
   );
 
-  static TextStyle changeBadge({
-    required Color color,
-    required bool compact,
-  }) => GoogleFonts.inter(
-    fontSize: compact ? 11 : 12,
-    fontWeight: FontWeight.w600,
-    color: color,
-  );
+  static TextStyle changeBadge({required Color color, required bool compact}) =>
+      GoogleFonts.inter(
+        fontSize: compact ? 11 : 12,
+        fontWeight: FontWeight.w600,
+        color: color,
+      );
 }
 
 extension AppConstantTextStyleContext on BuildContext {

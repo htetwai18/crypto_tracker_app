@@ -10,6 +10,5 @@ final class GetTrendingAndGlobalUseCase {
 
   Future<Result<(GlobalMarketOverview?, List<TrendingCoin>)>> call({
     bool forceRemote = false,
-  }) =>
-      _repository.getTrendingAndGlobal(forceRemote: forceRemote);
+  }) => _repository.getTrendingAndGlobal(forceRemote: forceRemote);
 }

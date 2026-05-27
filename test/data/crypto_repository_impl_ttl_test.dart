@@ -82,7 +82,10 @@ class _FakeRemoteDataSource implements CoinRemoteDataSource {
   }
 
   @override
-  Future<List<String>> searchCoinIds(String query, {int maxResults = 200}) async {
+  Future<List<String>> searchCoinIds(
+    String query, {
+    int maxResults = 200,
+  }) async {
     return const ['bitcoin'];
   }
 }
@@ -190,7 +193,11 @@ void main() {
     final local = _FakeLocalDataSource();
     final remote = _FakeRemoteDataSource();
     final network = StubNetworkInfo(online: true);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+    final repo = CryptoRepositoryImpl(
+      networkInfo: network,
+      remote: remote,
+      local: local,
+    );
 
     local.marketsPayloadByKey['1|'] = jsonEncode([
       {
@@ -214,7 +221,11 @@ void main() {
     final local = _FakeLocalDataSource();
     final remote = _FakeRemoteDataSource();
     final network = StubNetworkInfo(online: true);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+    final repo = CryptoRepositoryImpl(
+      networkInfo: network,
+      remote: remote,
+      local: local,
+    );
 
     local.marketsPayloadByKey['1|'] = jsonEncode([
       {
@@ -239,7 +250,11 @@ void main() {
     final local = _FakeLocalDataSource();
     final remote = _FakeRemoteDataSource();
     final network = StubNetworkInfo(online: true);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+    final repo = CryptoRepositoryImpl(
+      networkInfo: network,
+      remote: remote,
+      local: local,
+    );
 
     local.globalPayload = jsonEncode({
       'data': {
@@ -268,7 +283,11 @@ void main() {
     final local = _FakeLocalDataSource();
     final remote = _FakeRemoteDataSource();
     final network = StubNetworkInfo(online: true);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+    final repo = CryptoRepositoryImpl(
+      networkInfo: network,
+      remote: remote,
+      local: local,
+    );
 
     local.coinDetailPayloadById['bitcoin'] = jsonEncode({
       'id': 'bitcoin',
@@ -288,63 +307,84 @@ void main() {
     expect(remote.fetchCoinDetailCalls, 0);
   });
 
-  test('forces remote markets when forceRemote=true even if cache is fresh', () async {
-    final local = _FakeLocalDataSource();
-    final remote = _FakeRemoteDataSource();
-    final network = StubNetworkInfo(online: true);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+  test(
+    'forces remote markets when forceRemote=true even if cache is fresh',
+    () async {
+      final local = _FakeLocalDataSource();
+      final remote = _FakeRemoteDataSource();
+      final network = StubNetworkInfo(online: true);
+      final repo = CryptoRepositoryImpl(
+        networkInfo: network,
+        remote: remote,
+        local: local,
+      );
 
-    local.marketsPayloadByKey['1|'] = jsonEncode([
-      {
-        'id': 'ethereum',
-        'symbol': 'eth',
-        'name': 'Ethereum',
-        'image': '',
-        'current_price': 3000,
-      },
-    ]);
-    local.marketsFetchedAtByKey['1|'] = DateTime.now().subtract(
-      const Duration(seconds: 30),
-    );
+      local.marketsPayloadByKey['1|'] = jsonEncode([
+        {
+          'id': 'ethereum',
+          'symbol': 'eth',
+          'name': 'Ethereum',
+          'image': '',
+          'current_price': 3000,
+        },
+      ]);
+      local.marketsFetchedAtByKey['1|'] = DateTime.now().subtract(
+        const Duration(seconds: 30),
+      );
 
-    final result = await repo.getMarketsPage(page: 1, forceRemote: true);
-    expect(result, isA<Ok<List>>());
-    expect(remote.fetchMarketsPageCalls, 1);
-  });
+      final result = await repo.getMarketsPage(page: 1, forceRemote: true);
+      expect(result, isA<Ok<List>>());
+      expect(remote.fetchMarketsPageCalls, 1);
+    },
+  );
 
-  test('returns cached markets while offline even when cache is stale', () async {
-    final local = _FakeLocalDataSource();
-    final remote = _FakeRemoteDataSource();
-    final network = StubNetworkInfo(online: false);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+  test(
+    'returns cached markets while offline even when cache is stale',
+    () async {
+      final local = _FakeLocalDataSource();
+      final remote = _FakeRemoteDataSource();
+      final network = StubNetworkInfo(online: false);
+      final repo = CryptoRepositoryImpl(
+        networkInfo: network,
+        remote: remote,
+        local: local,
+      );
 
-    local.marketsPayloadByKey['1|'] = jsonEncode([
-      {
-        'id': 'ethereum',
-        'symbol': 'eth',
-        'name': 'Ethereum',
-        'image': '',
-        'current_price': 3000,
-      },
-    ]);
-    local.marketsFetchedAtByKey['1|'] = DateTime.now().subtract(
-      const Duration(days: 7),
-    );
+      local.marketsPayloadByKey['1|'] = jsonEncode([
+        {
+          'id': 'ethereum',
+          'symbol': 'eth',
+          'name': 'Ethereum',
+          'image': '',
+          'current_price': 3000,
+        },
+      ]);
+      local.marketsFetchedAtByKey['1|'] = DateTime.now().subtract(
+        const Duration(days: 7),
+      );
 
-    final result = await repo.getMarketsPage(page: 1);
-    expect(result, isA<Ok<List>>());
-    expect(remote.fetchMarketsPageCalls, 0);
-  });
+      final result = await repo.getMarketsPage(page: 1);
+      expect(result, isA<Ok<List>>());
+      expect(remote.fetchMarketsPageCalls, 0);
+    },
+  );
 
-  test('returns NetworkUnavailableFailure when offline and no markets cache', () async {
-    final local = _FakeLocalDataSource();
-    final remote = _FakeRemoteDataSource();
-    final network = StubNetworkInfo(online: false);
-    final repo = CryptoRepositoryImpl(networkInfo: network, remote: remote, local: local);
+  test(
+    'returns NetworkUnavailableFailure when offline and no markets cache',
+    () async {
+      final local = _FakeLocalDataSource();
+      final remote = _FakeRemoteDataSource();
+      final network = StubNetworkInfo(online: false);
+      final repo = CryptoRepositoryImpl(
+        networkInfo: network,
+        remote: remote,
+        local: local,
+      );
 
-    final result = await repo.getMarketsPage(page: 1);
-    expect(result.isErr, isTrue);
-    expect(result.err?.failure.message, contains('No network connection'));
-    expect(remote.fetchMarketsPageCalls, 0);
-  });
+      final result = await repo.getMarketsPage(page: 1);
+      expect(result.isErr, isTrue);
+      expect(result.err?.failure.message, contains('No network connection'));
+      expect(remote.fetchMarketsPageCalls, 0);
+    },
+  );
 }
