@@ -1,0 +1,48 @@
+name: crypto_tracker_app
+description: Cryptocurrency tracking app — clean architecture, Bloc, Drift, Dio.
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.11.5
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  bloc: ^9.0.0
+  flutter_bloc: ^9.0.0
+  equatable: ^2.0.7
+
+  dio: ^5.7.0
+
+  drift: ^2.23.0
+  drift_flutter: ^0.2.1
+  sqlite3_flutter_libs: ^0.5.31
+  path_provider: ^2.1.5
+  path: ^1.9.1
+
+  get_it: ^8.2.0
+  connectivity_plus: ^6.1.1
+  intl: ^0.20.2
+  google_fonts: ^8.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+  build_runner: ^2.4.15
+  drift_dev: ^2.23.0
+
+  mocktail: ^1.0.4
+  bloc_test: ^10.0.0
+
+flutter:
+  uses-material-design: true
+  generate: true
