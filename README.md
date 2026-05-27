@@ -111,3 +111,26 @@ For all future behavior changes:
 3. **Refactor**: cleanup while keeping tests green
 
 See `CONTRIBUTING.md` and `.github/pull_request_template.md` for PR expectations.
+
+## Screenshots
+
+### Core flow
+
+![Splash](docs/screenshots/splash.png)
+![Home](docs/screenshots/home.png)
+![Search Result](docs/screenshots/search_result.png)
+![Detail 1](docs/screenshots/detail_1.png)
+![Detail 2](docs/screenshots/detail_2.png)
+![Loading Pagination](docs/screenshots/loading_pagination.png)
+
+### Error and offline UX
+
+![Search Exception Handling](docs/screenshots/search_exception_handling.png)
+
+### Theme and localization
+
+![Dark Mode Detail](docs/screenshots/dark_mode_detail.png)
+![Theme Dialog](docs/screenshots/theme_dialog.png)
+![Language Dialog](docs/screenshots/language_dialog.png)
+![Myanmar Language](docs/screenshots/mm_language.png)
+
