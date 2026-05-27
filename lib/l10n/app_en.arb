@@ -1,0 +1,69 @@
+{
+  "@@locale": "en",
+  "appTitle": "Crypto Tracker",
+  "marketsTitle": "Markets",
+  "liveSourceLabel": "LIVE · COINGECKO",
+  "top20MarketCapLabel": "TOP 20 · 24H",
+  "volume24hLabel": "VOL 24H",
+  "trendingSectionLabel": "TRENDING · 24H",
+  "trendingCountLabel": "{count} COINS ›",
+  "@trendingCountLabel": {
+    "placeholders": {
+      "count": { "type": "int", "example": "15" }
+    }
+  },
+  "assetColumnLabel": "ASSET",
+  "priceColumnLabel": "PRICE · 24H",
+  "globalMarketCap": "Global market cap",
+  "trending": "Trending",
+  "coins": "Coins",
+  "searchHint": "Search coins",
+  "pullToRefresh": "Pull to refresh",
+  "noCoins": "No coins to show",
+  "errorOccurred": "Something went wrong",
+  "retry": "Retry",
+  "offlineCached": "Offline — showing cached data",
+  "favorite": "Favorite",
+  "unfavorite": "Remove favorite",
+  "marketCapRank": "Rank {rank}",
+  "@marketCapRank": {
+    "placeholders": {
+      "rank": { "type": "int", "example": "12" }
+    }
+  },
+  "detailTitle": "Details",
+  "switchLanguage": "Switch language",
+  "appOptions": "App options",
+  "menuLanguage": "LANGUAGE",
+  "menuTheme": "THEME",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "themeSystem": "System",
+  "languageDialogTitle": "Language",
+  "themeDialogTitle": "Theme",
+  "detailRankTitle": "{symbol} · RANK #{rank}",
+  "@detailRankTitle": {
+    "placeholders": {
+      "symbol": { "type": "String", "example": "ETH" },
+      "rank": { "type": "int", "example": "2" }
+    }
+  },
+  "marketStats": "MARKET STATS",
+  "aboutCoin": "ABOUT {name}",
+  "@aboutCoin": {
+    "placeholders": {
+      "name": { "type": "String", "example": "Ethereum" }
+    }
+  },
+  "statMarketCap": "Market Cap",
+  "statVolume24h": "Volume 24h",
+  "statAllTimeHigh": "All-Time High",
+  "statAllTimeLow": "All-Time Low",
+  "statCirculatingSupply": "Circulating Supply",
+  "statMaxSupply": "Max Supply",
+  "change24hSuffix": "24h",
+  "uncappedSupply": "∞ uncapped",
+  "sourceLabel": "SOURCE",
+  "sampleDataLabel": "SAMPLE DATA",
+  "detailNoDescription": "No description available for this coin."
+}
